@@ -33,8 +33,8 @@ const decidirTurno = () => {
 	return turno;
 };
 
-const posicionarJugador = (tableroModificado) => {
-	while (true) {
+const posicionarJugador = () => {
+	while (true && valido === false) {
 		const posColumna = prompt('En que columna quieres colocar tu pieza(1-3): '); //1
 		const posFila = prompt('En que fila quieres colocar tu pieza(1-3): '); //1
 
@@ -45,9 +45,11 @@ const posicionarJugador = (tableroModificado) => {
 		}
 	}
 };
-const posicionarMaquina = (tableroModificado) => {
-	const posColumna = Math.ceil(Math.random() * 3) - 1;
-	const posFila = Math.ceil(Math.random() * 3) - 1;
+const posicionarMaquina = () => {
+	while (valido === false) {
+		const posColumna = Math.ceil(Math.random() * 3) - 1;
+		const posFila = Math.ceil(Math.random() * 3) - 1;
+	}
 
 	return posColumna, posFila;
 };
@@ -59,6 +61,9 @@ const imprimirTablero = (tablero, posColumna, posFila, turno) => {
 		} else {
 			tablero[posColumna][posFila] = 'O';
 		}
+		return true;
+	} else {
+		return false;
 	}
 };
 
@@ -84,14 +89,14 @@ const juego = () => {
 	while (ganador === false) {
 		if (Turno === 1) {
 			const turnoJugador = posicionarJugador(tableroModificado);
-			Turno = 2;
+			Turno++;
 			console.log(turnoJugador);
 		} else {
 			const turnoMaquina = posicionarMaquina(tableroModificado);
-			Turno = 1;
+			Turno--;
 			console.log(turnoMaquina);
 		}
 	}
 };
-
+// PENDIENTE: Que jugador o maquina no puedan escoger una posicion donde ya hay una pieza
 juego();
